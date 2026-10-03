@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Himmelblau 💙</title>
+<meta name="theme-color" content="#7CC8FF">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Ada pelajaran kecil untukmu 💙">
+<meta property="og:description" content="Tiga pelajaran singkat, satu pertanyaan penting.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💙</text></svg>">
+
+<!-- Font dimuat tanpa memblokir tampilan (hanya bobot yang dipakai) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Instrument+Serif:ital@1&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Instrument+Serif:ital@1&display=swap"></noscript>
+
+<link rel="stylesheet" href="style.css?v=4">
+<script src="script.js?v=4" defer></script>
+</head>
+<body>
+<noscript><p style="padding:24px;font-family:sans-serif">Halaman ini butuh JavaScript supaya bisa jalan.</p></noscript>
+
+<!-- simbol awan -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="cloud" viewBox="0 0 200 100">
+      <g fill="#fff"><circle cx="62" cy="60" r="32"/><circle cx="102" cy="45" r="40"/><circle cx="145" cy="60" r="30"/><rect x="38" y="58" width="136" height="34" rx="17"/></g>
+    </symbol>
+    <symbol id="pine" viewBox="0 0 40 70"><path d="M20 0 L34 26 H26 L38 46 H27 L40 66 H0 L13 46 H2 L14 26 H6Z"/></symbol>
+  </defs>
+</svg>
+
+<div class="sky" id="skyDay"></div>
+<div class="sky" id="skyNight"></div>
+<div class="sky" id="skyGlow"></div>
+
+<button class="sun" id="sun" aria-label="Matahari"><span class="shades"></span></button>
+
+<div class="cloud c1"><svg viewBox="0 0 200 100"><use href="#cloud"/></svg></div>
+<div class="cloud c2"><svg viewBox="0 0 200 100"><use href="#cloud"/></svg></div>
+<div class="cloud c3"><svg viewBox="0 0 200 100"><use href="#cloud"/></svg></div>
+<div class="cloud c4"><svg viewBox="0 0 200 100"><use href="#cloud"/></svg></div>
+<div class="cloud c5" id="cloudS"><svg viewBox="0 0 200 100"><use href="#cloud"/></svg></div>
+
+<div class="bird b1"><svg viewBox="0 0 32 12"><path d="M1 10 Q8 0 16 8 Q24 0 31 10" fill="none" stroke="#12365C" stroke-width="2" stroke-linecap="round"/></svg></div>
+<div class="bird b2"><svg viewBox="0 0 32 12"><path d="M1 10 Q8 0 16 8 Q24 0 31 10" fill="none" stroke="#12365C" stroke-width="2" stroke-linecap="round"/></svg></div>
+
+<div class="mtn m1"></div><div class="mtn m2"></div>
+<div class="hill h1">
+  <svg class="pine" style="left:38%;--s:1.1" viewBox="0 0 40 70"><use href="#pine"/></svg>
+  <svg class="pine" style="left:46%;--s:1.5" viewBox="0 0 40 70"><use href="#pine"/></svg>
+  <svg class="pine" style="left:53%;--s:.9" viewBox="0 0 40 70"><use href="#pine"/></svg>
+</div>
+<div class="hill h2">
+  <svg class="pine" style="left:42%;--s:1.3" viewBox="0 0 40 70"><use href="#pine"/></svg>
+  <svg class="pine" style="left:49%;--s:1" viewBox="0 0 40 70"><use href="#pine"/></svg>
+  <svg class="pine" style="left:56%;--s:1.7" viewBox="0 0 40 70"><use href="#pine"/></svg>
+</div>
+<div class="hill h3"></div>
+
+<button class="clover" id="clover" aria-label="Semanggi daun empat">
+  <svg viewBox="0 0 32 40">
+    <path d="M16 20 Q14 31 19 39" fill="none" stroke-width="2" stroke-linecap="round"/>
+    <path d="M16 15 C10 5 0 9 6 16 C9 19 14 18 16 15Z" stroke="none"/>
+    <path d="M16 15 C10 5 0 9 6 16 C9 19 14 18 16 15Z" transform="rotate(90 16 15)" stroke="none"/>
+    <path d="M16 15 C10 5 0 9 6 16 C9 19 14 18 16 15Z" transform="rotate(180 16 15)" stroke="none"/>
+    <path d="M16 15 C10 5 0 9 6 16 C9 19 14 18 16 15Z" transform="rotate(270 16 15)" stroke="none"/>
+  </svg>
+</button>
+
+<button class="bug" id="bug" aria-label="Kepik">
+  <svg viewBox="0 0 24 28"><ellipse cx="12" cy="5" rx="5" ry="4" fill="#12365C"/><ellipse cx="12" cy="16" rx="9" ry="10" fill="#E8453C" stroke="#12365C" stroke-width="1.5"/><path d="M12 7v19" stroke="#12365C" stroke-width="1.5"/><circle cx="8" cy="13" r="1.8" fill="#12365C"/><circle cx="16" cy="13" r="1.8" fill="#12365C"/><circle cx="8" cy="20" r="1.8" fill="#12365C"/><circle cx="16" cy="20" r="1.8" fill="#12365C"/></svg>
+</button>
+
+<canvas id="fx"></canvas>
+
+<header class="hud">
+  <button class="brand" id="brand" tabindex="-1">Himmelblau</button>
+  <div class="tools">
+    <button class="chip" id="btnEggs" aria-label="Rahasia yang ditemukan">✨ <span id="eggCount">0/7</span></button>
+    <button class="chip" id="btnSound" aria-label="Suara" title="Musik nyala / mati">🔇</button>
+    <button class="chip" id="btnNight" aria-label="Ganti siang atau malam" title="Siang / malam">🌙</button>
+  </div>
+</header>
+
+<main class="stage">
+  <article class="card" id="card">
+    <div class="prog" id="prog" aria-hidden="true"></div>
+
+    <!-- 0: sapaan -->
+    <section class="scene active" id="s0">
+      <h1 id="h0"></h1>
+      <p class="lead" id="greetTr"></p>
+      <p class="lead">Hari ini aku bikin kelas mini khusus buat kamu, murid paling rajin belajar bahasa Jerman 😆. Santai aja, nggak ada PR kok. Habis ini ada satu hal yang mau aku omongin.</p>
+      <ol class="flow"><li>3 pelajaran Jerman singkat (gampang, janji!)</li><li>1 surat kecil dari aku</li><li>1 pertanyaan penting (bukan soal ujian 😅)</li></ol>
+      <p class="lead">Cuma sekitar 3 menit. 🔊 Nyalain suaranya ya, ada musiknya!</p>
+      <div class="row"><button class="btn" id="start">Masuk kelas</button></div>
+      <p class="tiny">Psst, ada 7 rahasia tersembunyi di halaman ini. Temuin semuanya buat nilai bonus ⭐</p>
+    </section>
+
+    <!-- 1: kosakata -->
+    <section class="scene" id="s1">
+      <h2>Pelajaran 1: kata dasar dari cerita kita</h2>
+      <p class="how"><span class="ic">👆</span><span>Ketuk kartunya buat lihat artinya, terus pencet tombol di bawah buat lanjut.</span></p>
+      <div class="flash" id="flash" tabindex="0" role="button" aria-label="Kartu kosakata. Tekan untuk membalik.">
+        <div class="flash-inner">
+          <div class="face front"><div class="big" id="fDe"></div><small>ketuk untuk membalik</small></div>
+          <div class="face back"><div class="idn" id="fId"></div><p id="fNote"></p></div>
+        </div>
+      </div>
+      <div class="row split"><span class="count" id="fCount">1 / 3</span><button class="btn" id="fNext">Kartu berikutnya</button></div>
+    </section>
+
+    <!-- 2: susun kalimat -->
+    <section class="scene" id="s2">
+      <h2>Pelajaran 2: susun kalimat</h2>
+      <p class="how"><span class="ic">👆</span><span>Ketuk kata-katanya satu per satu sesuai urutan artinya. Salah urutan? Ketuk kata di jawabanmu buat balikin.</span></p>
+      <p class="goal" id="satzGoal"></p>
+      <div class="answer" id="ans" aria-label="Jawabanmu"></div>
+      <div class="pool" id="pool" aria-label="Pilihan kata"></div>
+      <p class="msg" id="satzMsg" aria-live="polite"></p>
+      <div class="row"><button class="btn ghost small" id="sHint">💡 Petunjuk</button><button class="btn" id="sNext" hidden>Soal berikutnya</button></div>
+    </section>
+
+    <!-- 3: alam -->
+    <section class="scene" id="s3">
+      <h2>Pelajaran 3: tanam tiga bunga</h2>
+      <p class="how"><span class="ic">👆</span><span>Ketuk area hijau di bawah 3 kali, nanti tumbuh bunga di situ.</span></p>
+      <p class="lead">Ketuk padang di bawah buat nanem bunga, kayak di pinggir jalur pendakian.</p>
+      <div class="meadow" id="meadow" aria-label="Padang rumput. Ketuk untuk menanam bunga."><div class="hint" id="mHint">0 / 3 bunga</div></div>
+      <p class="lead" id="mNote" hidden><span class="de">Vergiss mich nicht</span> artinya “jangan lupakan aku”. Bunga biru kecil ini dari dulu jadi simbol kenangan.</p>
+      <div class="row"><button class="btn" id="mNext" hidden>Lanjut</button></div>
+    </section>
+
+    <!-- 4: surat -->
+    <section class="scene" id="s4">
+      <h2 id="h4"></h2>
+      <p class="how"><span class="ic">📖</span><span>Baca suratnya dulu (ketuk teksnya buat skip animasi). Terus ketuk kartu-kartu kecil di bawahnya ya.</span></p>
+      <div class="letter" id="letter" aria-live="polite"></div>
+      <div class="reasons" id="reasons" hidden></div>
+      <div class="row"><button class="btn" id="lNext" hidden>Satu pertanyaan terakhir</button></div>
+    </section>
+
+    <!-- 5: pertanyaan -->
+    <section class="scene" id="s5">
+      <p class="lead center" style="margin-bottom:4px">Ujian terakhir (cuma satu soal, nggak ada remedial 😆):</p>
+      <h2 class="ask center" id="h5">Willst du meine Freundin sein?</h2>
+      <p class="lead center">Mau nggak jadi pacarku, <span class="her"></span>?</p>
+      <div class="answers" id="answers">
+        <button class="btn love" id="yes">Ja! 💙</button>
+        <button class="btn ghost" id="no">Nein</button>
+      </div>
+      <p class="noMsg" id="noMsg" aria-live="polite"></p>
+
+      <div class="own" id="own">
+        <div class="or"><span>atau jawab sendiri</span></div>
+        <label class="own-l" for="ownText">Bebas banget, nggak ada jawaban yang salah. Nggak harus Ja atau Nein kok.</label>
+        <div class="chips" id="chips">
+          <button type="button" class="chip2" data-t="Aku butuh waktu dulu ya, nanti aku kabarin 🙈">Butuh waktu dulu 🙈</button>
+          <button type="button" class="chip2" data-t="Aku mau, tapi pelan-pelan ya 💙">Mau, pelan-pelan ya 💙</button>
+          <button type="button" class="chip2" data-t="Kita temenan dulu ya, aku masih nyaman gini 😊">Temenan dulu 😊</button>
+        </div>
+        <textarea id="ownText" rows="3" maxlength="300" placeholder="Ketik jawabanmu di sini…"></textarea>
+        <div class="row split" style="margin-top:10px"><span class="tiny" id="ownCount" style="margin:0">0/300</span><button class="btn small" id="ownSend" disabled>Simpan jawabanku</button></div>
+      </div>
+
+      <div class="own-done" id="ownDone" hidden>
+        <p class="lead center"><b>Makasih udah jujur ya, <span class="her"></span>.</b> Apa pun jawabanmu, aku hargai banget. Nggak ada paksaan sama sekali 💙</p>
+        <blockquote class="quote" id="ownQuote"></blockquote>
+        <div class="row" style="justify-content:center">
+          <button class="btn love" id="ownWa">Kirim ke WhatsApp 💬</button>
+          <button class="btn ghost small" id="ownEdit">Ubah jawabanku</button>
+        </div>
+      </div>
+      <p class="tiny center">Apa pun jawabanmu, kita tetap temenan ya.</p>
+    </section>
+
+    <!-- 6: jawaban ya -->
+    <section class="scene" id="s6">
+      <h2 id="h6">Ja! Du hast Ja gesagt 💙</h2>
+      <p class="lead">Cieee, Ja! 🥹 Makasih ya, <span class="her"></span>. Resmi deh kita mulai bab baru. <span class="de">Zusammen</span> artinya “bersama”. Nih tiket pendakian buat petualangan kita berikutnya. Pilih satu kupon hadiah dulu dong!</p>
+      <div class="ticket-wrap">
+        <div class="ticket" id="ticket">
+          <div class="t-main">
+            <p class="t-brand"><span class="de">Gipfel-Ticket</span><small>Tiket Pendakian Berdua</small></p>
+            <div class="t-grid">
+              <div><small>PENDAKI 1</small><b class="her"></b></div>
+              <div><small>PENDAKI 2</small><b class="him"></b></div>
+              <div><small>DARI</small><b id="uStory"></b></div>
+              <div><small>TUJUAN</small><b>Puncak berikutnya</b></div>
+              <div><small>BERLAKU</small><b id="uDate"></b></div>
+              <div><small>STATUS</small><b>Zusammen 💙</b></div>
+            </div>
+          </div>
+          <div class="t-div"></div>
+          <div class="t-stub">
+            <small>KUPON HADIAH (PILIH SATU)</small>
+            <div class="vouchers" id="vouchers"></div>
+            <div class="barcode" aria-hidden="true"></div>
+          </div>
+        </div>
+        <span class="sticker" id="uSticker" hidden>🏆 Juara Kelas</span>
+      </div>
+      <p class="ps" id="ps"></p>
+      <div class="row">
+        <button class="btn love" id="wa">Kirim ke WhatsApp</button>
+        <button class="btn ghost small" id="share">Bagikan tiket 🖼️</button>
+        <button class="btn ghost small" id="again">Ulangi</button>
+      </div>
+    </section>
+  </article>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><b id="tDe"></b><span id="tId"></span></div>
+
+<div class="modal" id="modal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <h3 id="mTitle"></h3>
+    <div id="mBody"></div>
+    <button class="btn small" id="mClose">Tutup</button>
+  </div>
+</div>
+</html>
